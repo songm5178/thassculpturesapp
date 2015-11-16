@@ -64,6 +64,17 @@ public class MainActivity extends Activity {
 				startActivity(intent);
 			}
 		});
+
+		Button donateButton = (Button) findViewById(R.id.button_donate);
+		donateButton.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Uri uri = Uri.parse("http://www.wabashvalleyartspaces.com/");
+				Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+				startActivity(intent);
+			}
+		});
 	}
 
 	@Override

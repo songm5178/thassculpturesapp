@@ -224,9 +224,13 @@ public class ToursMapActivity extends FragmentActivity implements OnMapReadyCall
 				@Override
 				public void onItemCheckedStateChanged(ActionMode mode, int position, long id,
 						boolean checked) {
+					Sculpture s = mSculptures.get(position);
+					String latlon = s.getLocation();
+					if(latlon.isEmpty() || latlon == null){
+						return;
+					}
 					if (checked) {
-						Sculpture s = mSculptures.get(position);
-						String latlon = s.getLocation();
+
 						double lat = 0;
 						double lon = 0;
 						String temp = "";

@@ -43,6 +43,8 @@ public class SculptureActivity extends Activity {
 	ImageView sculptureImage;
 	CommentsListAdapter adapter;
 
+	public static final String ARTIST_NAME = "Artist_Name";
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -103,6 +105,7 @@ public class SculptureActivity extends Activity {
 		new QueryForCommentsTask().execute();
 	}
 	private void setUpSculptureCard() {
+
 		TextView sculptureName = (TextView) findViewById(R.id.textView_sculptureName);
 		TextView sculptureArtist = (TextView) findViewById(R.id.textView_sculptureArtist);
 		TextView sculptureAddress = (TextView) findViewById(R.id.textView_sculptureAddress);
@@ -121,7 +124,6 @@ public class SculptureActivity extends Activity {
 			sculptureImage.setImageBitmap(SculptureListAdapter.getBitmapFromMemCache(mSculpture
 					.getImage()));
 		}
-
 	}
 
 	@Override
@@ -142,7 +144,10 @@ public class SculptureActivity extends Activity {
 		} else if (id == R.id.artist_profile_menu) {
 
 			Intent intent = new Intent(getApplicationContext(), ArtistPageActivity.class);
+			intent.putExtra(ARTIST_NAME, mSculpture.getArtist());
+
 			startActivityForResult(intent, MainActivity.REQUEST_CODE_CHANGE_BUTTON);
+
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -236,7 +241,7 @@ public class SculptureActivity extends Activity {
 			}
 			ArrayList<Comment> comments = new ArrayList<Comment>();
 			for (Comment c : result.getItems()) {
-				if (mSculpture.getEntityKey().equals(c.getSculptureKey())) {
+				if (mSculpture.getEntityKey().equals(c.getSculptureKey()) && c.getIsApproved() == Boolean.TRUE) {
 					comments.add(c);
 				}
 			}
